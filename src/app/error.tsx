@@ -1,6 +1,6 @@
 "use client";
 
-const Error = () => {
+const Error: React.FC = () => {
     return (
         <div>
             <h1>Error</h1>

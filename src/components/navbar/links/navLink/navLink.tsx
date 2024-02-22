@@ -11,16 +11,15 @@ interface NavLinkProps {
 }
 
 const NavLink = ({ item }: NavLinkProps) => {
-    const pathname = usePathname();
+    const pathname: string = usePathname();
 
     return (
         <Link
             href={item.path}
-            className={`min-w-24 p-2.5 rounded-3xl font-medium text-center ${
-                pathname === item.path
-                    ? "bg-[var(--text)] text-[var(--bg)]"
-                    : ""
-            }`}
+            className={`min-w-24 p-2.5 rounded-3xl font-medium text-center ${pathname === item.path
+                ? "bg-[var(--text)] text-[var(--bg)]"
+                : ""
+                }`}
         >
             {item.title}
         </Link>
