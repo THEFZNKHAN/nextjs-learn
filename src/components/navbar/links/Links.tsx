@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 import NavLink from "./navLink/navLink";
@@ -57,9 +58,16 @@ const Links: React.FC = () => {
                     <NavLink item={{ title: "Login", path: "/login" }} />
                 )}
             </div>
-            <button onClick={() => setOpen((prev) => !prev)} className="hidden max-md:block max-md:cursor-pointer max-md:rounded-lg max-md:p-2 max-md:font-bold max-md:bg-[var(--text)] max-md:text-[var(--bg)]">Menu</button>
+            <Image
+                src="/menu.png"
+                alt=""
+                width={30}
+                height={30}
+                onClick={() => setOpen((prev) => !prev)}
+                className="hidden max-md:block max-md:cursor-pointer"
+            />
             {open && (
-                <div className="hidden max-md:absolute max-md:top-24 max-md:right-0 max-md:w-1/2 max-md:h-[calc(100vh_-_100px)] max-md:bg-purple-700 max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-2.5">
+                <div className="hidden max-md:absolute max-md:top-24 max-md:right-0 max-md:w-1/2 max-md:h-[calc(100vh_-_100px)] max-md:bg-[var(--bg)] max-md:flex max-md:flex-col max-md:items-center max-md:justify-center max-md:gap-2.5">
                     {links.map((link) => (
                         <NavLink item={link} key={link.title} />
                     ))}
