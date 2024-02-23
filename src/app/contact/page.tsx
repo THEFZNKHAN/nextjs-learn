@@ -1,4 +1,10 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
+
+// dynamically calling the HydrationTest component
+// const HydrationTestNoSSR = dynamic(() => import("@/components/hydrationTest"), {
+//     ssr: false,
+// });
 
 const ContactPage: React.FC = () => {
     return (
@@ -12,6 +18,9 @@ const ContactPage: React.FC = () => {
                     className="object-contain"
                 />
             </div>
+
+            {/* One of way to hide the hydration warning form the side */}
+            {/* <div suppressHydrationWarning>Math.random()</div> */}
 
             {/* Form Container */}
             <div className="flex-1">
