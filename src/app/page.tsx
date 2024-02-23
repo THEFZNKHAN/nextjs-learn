@@ -2,20 +2,20 @@ import Image from "next/image";
 
 const Home: React.FC = () => {
     return (
-        <div className="flex gap-2.5">
+        <div className="flex gap-2.5 max-lg:flex-col max-lg:text-center">
             {/* Text Container */}
             <div className="flex-1 flex flex-col gap-12">
-                <h1 className="text-8xl font-bold">
+                <h1 className="text-8xl font-bold max-md:text-6xl">
                     Creative Thoughts Agency.
                 </h1>
-                <p className="text-xl">
+                <p className="text-xl max-lg:text-lg">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                     Aliquid voluptatibus architecto corporis quisquam quo
                     dolore!
                 </p>
 
                 {/* Buttons */}
-                <div>
+                <div className="max-lg:justify-center">
                     <button className="p-5 mr-2 min-w-28 border-none rounded-md bg-[var(--btn)] text-[var(--text)] font-semibold">
                         Learn More
                     </button>
@@ -25,7 +25,7 @@ const Home: React.FC = () => {
                 </div>
 
                 {/* Brand Container */}
-                <div className="relative w-[500px] h-12 grayscale">
+                <div className="relative w-[500px] h-12 grayscale max-md:w-full">
                     <Image src="/brands.png" alt="" fill className="" />
                 </div>
             </div>
