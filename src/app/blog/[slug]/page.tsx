@@ -1,6 +1,29 @@
+import PostUser from "@/components/postUser/postUser";
 import Image from "next/image";
+import { Suspense } from "react";
 
-const SinglePostPage = () => {
+// FETCH DATA WITH AN API
+const getData = async ({ slug }: any) => {
+    try {
+        const res = await fetch(
+            `https://jsonplaceholder.typicode.com/posts/${slug}`
+        );
+
+        if (!res.ok) {
+            throw new Error(`Failed to fetch post`);
+        }
+
+        return res.json();
+    } catch (error) {
+        throw new Error(`Error fetching post data: ${error}`);
+    }
+};
+
+const SinglePostPage = async ({ params }: any) => {
+    const { slug } = params;
+
+    const post = await getData(slug);
+
     return (
         <div className="flex gap-24">
             {/* Image Container */}
@@ -15,7 +38,7 @@ const SinglePostPage = () => {
 
             {/* Text Container */}
             <div className="flex-[2] flex flex-col gap-12">
-                <h1 className="text-6xl font-bold">Title</h1>
+                <h1 className="text-6xl font-bold">{post.title}</h1>
 
                 {/* Detail Container */}
                 <div className="flex gap-5">
@@ -28,12 +51,9 @@ const SinglePostPage = () => {
                     />
 
                     {/* Detail Text Container */}
-                    <div className="flex flex-col gap-2.5 mx-2">
-                        <span className="text-slate-400 font-bold text-lg">
-                            Author
-                        </span>
-                        <span className="font-medium">Walter White</span>
-                    </div>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <PostUser userId={post.userId} />
+                    </Suspense>
                     <div className="flex flex-col gap-2.5">
                         <span className="text-slate-400 font-bold text-lg">
                             Published
@@ -43,12 +63,7 @@ const SinglePostPage = () => {
                 </div>
 
                 {/* Description Container */}
-                <div className="text-xl">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Ullam consequuntur molestias reprehenderit ex magni, cumque
-                    eaque commodi enim beatae possimus recusandae eius, quo a ea
-                    veniam doloribus necessitatibus cupiditate eos.
-                </div>
+                <div className="text-xl">{post.body}</div>
             </div>
         </div>
     );
