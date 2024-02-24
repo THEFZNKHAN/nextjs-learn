@@ -1,12 +1,15 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ObjectId } from "mongoose";
 
 interface Post {
-    userId: number;
-    id: number;
+    _id: ObjectId;
+    userId: string;
     title: string;
-    body: string;
+    desc: string;
+    slug: string;
+    img: string;
 }
 
 interface PostCardProps {
@@ -21,7 +24,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                 {/* Image Container */}
                 <div className="w-11/12 h-96 relative">
                     <Image
-                        src="https://images.pexels.com/photos/20293120/pexels-photo-20293120/free-photo-of-azores-portugal.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
+                        src={post.img}
                         alt=""
                         fill
                         className="object-cover rounded-sm"
@@ -38,10 +41,10 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                     {post.title}
                 </h1>
                 <p className="text-lg mb-4 font-light text-slate-400 w-11/12">
-                    {post.body}
+                    {post.desc}
                 </p>
                 <Link
-                    href={`/blog/${post.id}`}
+                    href={`/blog/${post.slug}`}
                     className="font-semibold underline"
                 >
                     READ MORE

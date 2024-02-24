@@ -1,40 +1,37 @@
 import PostUser from "@/components/postUser/postUser";
+import { getPost } from "@/lib/data";
+import { ObjectId, Schema } from "mongoose";
 import Image from "next/image";
 import { Suspense } from "react";
 
-// FETCH DATA WITH AN API
-const getData = async ({ slug }: any) => {
-    try {
-        const res = await fetch(
-            `https://jsonplaceholder.typicode.com/posts/${slug}`
-        );
+interface PostType {
+    _id: ObjectId;
+    userId: ObjectId;
+    title: string;
+    desc: string;
+    slug: string;
+    img: string;
+}
 
-        if (!res.ok) {
-            throw new Error(`Failed to fetch post`);
-        }
+interface SinglePostCardProps {
+    slug: string;
+}
 
-        return res.json();
-    } catch (error) {
-        throw new Error(`Error fetching post data: ${error}`);
-    }
-};
-
-const SinglePostPage = async ({ params }: any) => {
-    const { slug } = params;
-
-    const post = await getData(slug);
-
+const SinglePostPage: React.FC<SinglePostCardProps> = async ({ slug }) => {
+    const post = (await getPost(slug)) || ({} as PostType);
     return (
         <div className="flex gap-24">
             {/* Image Container */}
-            <div className="flex-1 relative h-[calc(100vh_-_200px)] max-md:hidden">
-                <Image
-                    src="https://images.pexels.com/photos/20293120/pexels-photo-20293120/free-photo-of-azores-portugal.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                    alt=""
-                    fill
-                    className="object-cover"
-                />
-            </div>
+            {post.img && (
+                <div className="flex-1 relative h-[calc(100vh_-_200px)] max-md:hidden">
+                    <Image
+                        src={post.img}
+                        alt=""
+                        fill
+                        className="object-cover"
+                    />
+                </div>
+            )}
 
             {/* Text Container */}
             <div className="flex-[2] flex flex-col gap-12">
@@ -42,18 +39,20 @@ const SinglePostPage = async ({ params }: any) => {
 
                 {/* Detail Container */}
                 <div className="flex gap-5">
-                    <Image
-                        src="https://images.pexels.com/photos/20293120/pexels-photo-20293120/free-photo-of-azores-portugal.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                        alt=""
-                        width={50}
-                        height={50}
-                        className="object-cover rounded-[50%]"
-                    />
-
                     {/* Detail Text Container */}
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <PostUser userId={post.userId} />
-                    </Suspense>
+                    {post && post.userId && (
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <PostUser
+                                userId={post.userId as Schema.Types.ObjectId}
+                                _id={post._id}
+                                username={""}
+                                email={""}
+                                password={""}
+                                isAdmin={false}
+                            />
+                        </Suspense>
+                    )}
+
                     <div className="flex flex-col gap-2.5">
                         <span className="text-slate-400 font-bold text-lg">
                             Published
@@ -63,7 +62,7 @@ const SinglePostPage = async ({ params }: any) => {
                 </div>
 
                 {/* Description Container */}
-                <div className="text-xl">{post.body}</div>
+                <div className="text-xl">{post.desc}</div>
             </div>
         </div>
     );
