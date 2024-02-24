@@ -1,10 +1,16 @@
-import dynamic from "next/dynamic";
+import type { Metadata } from "next";
 import Image from "next/image";
+// import dynamic from "next/dynamic";
 
 // dynamically calling the HydrationTest component
 // const HydrationTestNoSSR = dynamic(() => import("@/components/hydrationTest"), {
 //     ssr: false,
 // });
+
+export const metadata: Metadata = {
+    title: "Contact Page",
+    description: "Contact Description",
+};
 
 const ContactPage: React.FC = () => {
     return (

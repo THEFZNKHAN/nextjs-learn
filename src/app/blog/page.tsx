@@ -2,6 +2,7 @@ import React from "react";
 import PostCard from "@/components/postCard/PostCard";
 import { getPosts } from "@/lib/data";
 import { ObjectId } from "mongoose";
+import { Metadata } from "next";
 
 interface postType {
     _id: ObjectId;
@@ -11,6 +12,11 @@ interface postType {
     slug: string;
     img: string;
 }
+
+export const metadata: Metadata = {
+    title: "Blog Page",
+    description: "Blog Description",
+};
 
 const BlogPage: React.FC = async () => {
     const posts: postType[] = (await getPosts()) as postType[];

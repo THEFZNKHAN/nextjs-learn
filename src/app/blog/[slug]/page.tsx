@@ -17,6 +17,21 @@ interface SinglePostCardProps {
     slug: string;
 }
 
+export const generateMetadata = async ({
+    params,
+}: {
+    params: { slug: string };
+}) => {
+    const { slug } = params;
+
+    const post = (await getPost(slug)) || ({} as PostType);
+
+    return {
+        title: post.title,
+        description: post.desc,
+    };
+};
+
 const SinglePostPage: React.FC<SinglePostCardProps> = async ({ slug }) => {
     const post = (await getPost(slug)) || ({} as PostType);
     return (
