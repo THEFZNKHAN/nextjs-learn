@@ -1,8 +1,8 @@
-import PostUser from "@/components/postUser/postUser";
-import { getPost } from "@/lib/data";
-import { ObjectId, Schema } from "mongoose";
 import Image from "next/image";
 import { Suspense } from "react";
+import { getPost } from "@/lib/data";
+import { ObjectId, Schema } from "mongoose";
+import PostUser from "@/components/postUser/postUser";
 
 interface PostType {
     _id: ObjectId;
@@ -32,8 +32,19 @@ export const generateMetadata = async ({
     };
 };
 
+// FETCH DATA FROM AN API
+const getData = async (slug: string) => {
+    const res = await fetch(`https://localhost:3000/api/blog/${slug}`, {
+        next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) throw new Error("Something went wrong");
+    return res.json();
+};
+
 const SinglePostPage: React.FC<SinglePostCardProps> = async ({ slug }) => {
-    const post = (await getPost(slug)) || ({} as PostType);
+    // const post = (await getPost(slug)) || ({} as PostType);
+    const post = (await getData(slug)) || ({} as PostType);
     return (
         <div className="flex gap-24">
             {/* Image Container */}

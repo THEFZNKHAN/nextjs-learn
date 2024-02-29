@@ -18,8 +18,19 @@ export const metadata: Metadata = {
     description: "Blog Description",
 };
 
-const BlogPage: React.FC = async () => {
-    const posts: postType[] = (await getPosts()) as postType[];
+// FETCH DATA FROM AN API
+const getData = async () => {
+    const res = await fetch("https://localhost:3000/api/blog", {
+        next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) throw new Error("Something went wrong");
+    return res.json();
+};
+
+const BlogPage = async () => {
+    // const posts: postType[] = (await getPosts()) as postType[];
+    const posts: postType[] = await getData();
 
     return (
         <div className="flex flex-wrap gap-5">
