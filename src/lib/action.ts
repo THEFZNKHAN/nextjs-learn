@@ -1,10 +1,9 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { signIn } from "@/lib/auth";
+import { signIn, signOut } from "@/lib/auth";
 import { Post } from "./models";
 import { connectToDb } from "./utils";
-import { signOut } from "next-auth/react";
 
 export const addPost = async (
     formData: Iterable<readonly [PropertyKey, any]>

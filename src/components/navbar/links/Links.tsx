@@ -6,7 +6,6 @@ import { useState } from "react";
 
 import NavLink from "./navLink/navLink";
 import { handleLogout } from "@/lib/action";
-import { auth } from "@/lib/auth";
 
 interface Link {
     title: string;
@@ -32,14 +31,11 @@ const links: Link[] = [
     },
 ];
 
-const Links = (session: any) => {
+const Links = ({ session }: { session: any }) => {
     const [open, setOpen] = useState(false);
 
-    // temp
-    const isAdmin: boolean = true;
-
     return (
-        <div className="">
+        <div>
             <div className="flex items-center gap-2.5 max-md:hidden">
                 {links.map((link) => (
                     <NavLink item={link} key={link.title} />
@@ -52,7 +48,7 @@ const Links = (session: any) => {
                             />
                         )}
                         <form action={handleLogout}>
-                            <button className="p-2.5 cursor-pointer font-bold rounded-lg bg-[var(--text)] text-[var(--bg)]">
+                            <button type="submit" className="p-2.5 cursor-pointer font-bold rounded-lg bg-[var(--text)] text-[var(--bg)]">
                                 Logout
                             </button>
                         </form>
