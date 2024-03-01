@@ -1,10 +1,9 @@
 const AdminPage = () => {
     return (
-      <div>
-        <h1>AdminPage</h1>
-      </div>
+        <div className="flex justify-center">
+            <h1 className="text-4xl font-bold">Admin Page</h1>
+        </div>
     );
-  };
-  
-  export default AdminPage;
-  
+};
+
+export default AdminPage;

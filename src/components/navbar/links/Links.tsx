@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useState } from "react";
 
 import NavLink from "./navLink/navLink";
+import { handleLogout } from "@/lib/action";
+import { auth } from "@/lib/auth";
 
 interface Link {
     title: string;
@@ -30,11 +32,10 @@ const links: Link[] = [
     },
 ];
 
-const Links: React.FC = () => {
+const Links = (session: any) => {
     const [open, setOpen] = useState(false);
 
     // temp
-    const session: boolean = true;
     const isAdmin: boolean = true;
 
     return (
@@ -43,16 +44,18 @@ const Links: React.FC = () => {
                 {links.map((link) => (
                     <NavLink item={link} key={link.title} />
                 ))}
-                {session ? (
+                {session?.user ? (
                     <>
-                        {isAdmin && (
+                        {session.user?.isAdmin && (
                             <NavLink
                                 item={{ title: "Admin", path: "/admin" }}
                             />
                         )}
-                        <button className="p-2.5 cursor-pointer font-bold rounded-lg bg-[var(--text)] text-[var(--bg)]">
-                            Logout
-                        </button>
+                        <form action={handleLogout}>
+                            <button className="p-2.5 cursor-pointer font-bold rounded-lg bg-[var(--text)] text-[var(--bg)]">
+                                Logout
+                            </button>
+                        </form>
                     </>
                 ) : (
                     <NavLink item={{ title: "Login", path: "/login" }} />
