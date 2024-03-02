@@ -54,10 +54,10 @@ export const register = async (
     previousState: any,
     formData: Iterable<readonly [PropertyKey, any]>
 ) => {
-    const { username, email, password, img, passwordAgain } =
+    const { username, email, password, img, passwordRepeat } =
         Object.fromEntries(formData);
 
-    if (password != passwordAgain) {
+    if (password != passwordRepeat) {
         return { error: "Passwords do not match" };
     }
 
@@ -68,7 +68,7 @@ export const register = async (
             return { error: "Username already exists" };
         }
         const salt = await bcrypt.genSalt(10);
-        const hashedPassword = bcrypt.hash(password, salt);
+        const hashedPassword = await bcrypt.hash(password, salt);
         const newUser = new User({
             username,
             email,
@@ -94,10 +94,9 @@ export const login = async (
         await signIn("credentials", { username, password });
     } catch (error: any) {
         console.log(error);
-
-        if (error.message.include("CredentialsSignin")) {
+        if (error.message.includes("CredentialsSignin")) {
             return { error: "Invalid username or password" };
         }
-        return { error: "Something went wrong" };
+        throw error;
     }
 };

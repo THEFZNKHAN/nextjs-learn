@@ -8,8 +8,8 @@ import Link from "next/link";
 
 const LoginForm = () => {
     const router = useRouter();
-
     const [state, formActon] = useFormState(login, undefined);
+
     return (
         <form action={formActon} className="flex flex-col text-center gap-7">
             <input
