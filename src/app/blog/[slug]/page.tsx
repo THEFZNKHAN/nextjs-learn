@@ -4,18 +4,18 @@ import { getPost } from "@/lib/data";
 import { ObjectId, Schema } from "mongoose";
 import PostUser from "@/components/postUser/postUser";
 
-interface PostType {
+type PostType = {
     _id: ObjectId;
     userId: ObjectId;
     title: string;
     desc: string;
     slug: string;
     img: string;
-}
+};
 
-interface SinglePostCardProps {
+type SinglePostCardProps = {
     slug: string;
-}
+};
 
 export const generateMetadata = async ({
     params,
