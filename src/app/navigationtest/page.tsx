@@ -11,7 +11,6 @@ const NavigationTestPage = () => {
     const query = searchParams.get("q");
 
     const handleClick = () => {
-        console.log("Clicked");
         router.push("/");
         // router.refresh();
         // router.replace("/");

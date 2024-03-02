@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const Home: React.FC = () => {
     return (
@@ -16,12 +17,16 @@ const Home: React.FC = () => {
 
                 {/* Buttons */}
                 <div className="max-lg:justify-center">
-                    <button className="p-5 mr-2 min-w-28 border-none rounded-md bg-[var(--btn)] text-[var(--text)] font-semibold">
-                        Learn More
-                    </button>
-                    <button className="p-5 min-w-28 border-none rounded-md bg-[var(--text)] text-[var(--bg)] font-semibold">
-                        Contact
-                    </button>
+                    <Link href="/about">
+                        <button className="p-5 mr-2 min-w-28 border-none rounded-md bg-[var(--btn)] text-[var(--text)] font-semibold">
+                            Learn More
+                        </button>
+                    </Link>
+                    <Link href="/contact">
+                        <button className="p-5 min-w-28 border-none rounded-md bg-[var(--text)] text-[var(--bg)] font-semibold">
+                            Contact
+                        </button>
+                    </Link>
                 </div>
 
                 {/* Brand Container */}

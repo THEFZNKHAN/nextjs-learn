@@ -22,7 +22,6 @@ const login = async (credentials: any) => {
 
         return user;
     } catch (error: any) {
-        console.log(error);
         throw new Error("Failed to login!");
     }
 };
@@ -52,7 +51,6 @@ export const {
     ],
     callbacks: {
         async signIn({ user, account, profile }) {
-            console.log(user, account, profile);
             if (account?.provider === "github") {
                 await connectToDb();
                 try {
@@ -66,7 +64,6 @@ export const {
                         await newUser.save();
                     }
                 } catch (error: any) {
-                    console.log(error);
                     return false;
                 }
             }

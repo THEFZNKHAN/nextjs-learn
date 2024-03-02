@@ -20,7 +20,6 @@ export const addPost = async (
             userId,
         });
         await newPost.save();
-        console.log("Save to db");
         revalidatePath("/blog");
         revalidatePath("/admin");
     } catch (error) {
@@ -35,7 +34,6 @@ export const deletePost = async (
     try {
         await connectToDb();
         await Post.findByIdAndDelete(id);
-        console.log("Deleted form db");
         revalidatePath("/blog");
         revalidatePath("/admin");
     } catch (error) {
@@ -57,7 +55,6 @@ export const addUser = async (
             img,
         });
         await newUser.save();
-        console.log("Save to db");
         revalidatePath("/admin");
     } catch (error) {
         return { error: "Something went wrong" };
@@ -72,7 +69,6 @@ export const deleteUser = async (
         await connectToDb();
         await Post.deleteMany({ userId: id });
         await User.findByIdAndDelete(id);
-        console.log("Deleted form db");
         revalidatePath("/admin");
     } catch (error) {
         return { error: "Something went wrong" };
@@ -115,10 +111,8 @@ export const register = async (
             img,
         });
         await newUser.save();
-        console.log("Saved to db");
         return { success: true };
     } catch (error: any) {
-        console.log(error);
         return { error: "Something went wrong" };
     }
 };
@@ -132,7 +126,6 @@ export const login = async (
     try {
         await signIn("credentials", { username, password });
     } catch (error: any) {
-        console.log(error);
         if (error.message.includes("CredentialsSignin")) {
             return { error: "Invalid username or password" };
         }

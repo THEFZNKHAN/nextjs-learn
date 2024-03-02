@@ -34,7 +34,7 @@ export const generateMetadata = async ({
 
 // FETCH DATA FROM AN API
 const getData = async (slug: string) => {
-    const res = await fetch(`https://localhost:3000/api/blog/${slug}`, {
+    const res = await fetch(`http://localhost:3000/api/blog/${slug}`, {
         next: { revalidate: 3600 },
     });
 
