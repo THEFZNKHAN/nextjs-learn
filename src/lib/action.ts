@@ -7,6 +7,7 @@ import { Post, User } from "./models";
 import { connectToDb } from "./utils";
 
 export const addPost = async (
+    prevState: any,
     formData: Iterable<readonly [PropertyKey, any]>
 ) => {
     const { title, desc, slug, userId } = Object.fromEntries(formData);
@@ -19,8 +20,9 @@ export const addPost = async (
             userId,
         });
         await newPost.save();
-        console.log("Save to the db");
+        console.log("Save to db");
         revalidatePath("/blog");
+        revalidatePath("/admin");
     } catch (error) {
         return { error: "Something went wrong" };
     }
@@ -33,8 +35,45 @@ export const deletePost = async (
     try {
         await connectToDb();
         await Post.findByIdAndDelete(id);
-        console.log("Deleted form the db");
+        console.log("Deleted form db");
         revalidatePath("/blog");
+        revalidatePath("/admin");
+    } catch (error) {
+        return { error: "Something went wrong" };
+    }
+};
+
+export const addUser = async (
+    prevState: any,
+    formData: Iterable<readonly [PropertyKey, any]>
+) => {
+    const { username, email, password, img } = Object.fromEntries(formData);
+    try {
+        await connectToDb();
+        const newUser = new User({
+            username,
+            email,
+            password,
+            img,
+        });
+        await newUser.save();
+        console.log("Save to db");
+        revalidatePath("/admin");
+    } catch (error) {
+        return { error: "Something went wrong" };
+    }
+};
+
+export const deleteUser = async (
+    formData: Iterable<readonly [PropertyKey, any]>
+) => {
+    const { id } = Object.fromEntries(formData);
+    try {
+        await connectToDb();
+        await Post.deleteMany({ userId: id });
+        await User.findByIdAndDelete(id);
+        console.log("Deleted form db");
+        revalidatePath("/admin");
     } catch (error) {
         return { error: "Something went wrong" };
     }
