@@ -1,10 +1,10 @@
 ## NEXT JS APP
 
 ### Home Page
-![image](https://github.com/THEFZNKHAN/nextjs-learn/assets/124388165/522b2b12-313e-4d33-a956-f88685f9e408)
+![image](https://github.com/THEFZNKHAN/nextjs-learn/assets/124388165/0793b025-bb9a-454a-b8e0-21d36451694b)
 
 ### About Page
-![image](https://github.com/THEFZNKHAN/nextjs-learn/assets/124388165/0793b025-bb9a-454a-b8e0-21d36451694b)
+![image](https://github.com/THEFZNKHAN/nextjs-learn/assets/124388165/522b2b12-313e-4d33-a956-f88685f9e408)
 
 ### Contact Page
 ![image](https://github.com/THEFZNKHAN/nextjs-learn/assets/124388165/fcdaf1c7-5c4b-4869-a338-b5fa26ffbcf3)
